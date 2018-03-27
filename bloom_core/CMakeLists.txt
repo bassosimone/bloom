@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(bloom_core C)
+add_library(bloom_core core.c)
+if(CMAKE_C_COMPILER_ID MATCHES "Clang")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-missing-prototypes")
+endif()
+set_property(TARGET bloom_core PROPERTY POSITION_INDEPENDENT_CODE ON)
+target_include_directories (bloom_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

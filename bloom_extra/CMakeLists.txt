@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(bloom_extra CXX)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+add_library(bloom_extra extra.cpp)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  set(CMAKE_CXX_FLAGS
+      "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-missing-prototypes")
+endif()
+set_property(TARGET bloom_extra PROPERTY POSITION_INDEPENDENT_CODE ON)
+target_include_directories (bloom_extra PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
