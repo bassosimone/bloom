@@ -33,8 +33,10 @@ linux-vdso.so.1 =>  (0x00007fffe02c9000)
 $ otool -L `which docker`
 /usr/local/bin/docker:
 	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1225.1.1)
-	/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 1253.0.0)
-	/System/Library/Frameworks/Security.framework/Versions/A/Security (compatibility version 1.0.0, current version 57336.1.9)
+	/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation 
+	    (compatibility version 150.0.0, current version 1253.0.0)
+	/System/Library/Frameworks/Security.framework/Versions/A/Security
+	    (compatibility version 1.0.0, current version 57336.1.9)
 ```
 
 ### Windows
