@@ -2,7 +2,8 @@ package main
 
 /*
 #cgo CFLAGS: -I.
-#cgo LDFLAGS: -L./bloom_core -L./bloom_extra -lbloom_core -lbloom_extra -lc++
+#cgo darwin LDFLAGS: -L./bloom_core -L./bloom_extra -lbloom_core -lbloom_extra -lc++
+#cgo linux LDFLAGS: -L./bloom_core -L./bloom_extra -lbloom_core -lbloom_extra -lstdc++
 
 #include "bloom_core/core.h"
 #include "bloom_extra/extra.h"
