@@ -42,7 +42,7 @@ $ otool -L `which docker`
 ### Windows
 
 Docker does not install on my Windows system because it requires Windows 10 PRO. So, I
-decided to use [kubernetes](https://github.com/kubernetes/kubernetes) instead.
+used [kubernetes](https://github.com/kubernetes/kubernetes) instead.
 
 ```
 $ ldd kubectl.exe
