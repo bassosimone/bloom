@@ -15,7 +15,7 @@ This seems simple, right? But actually it's not super simple. So, I created this
 
 ## The gold standard
 
-It is important to understand exactly what we want to obtain when we discuss static linking. We agreed with [@hellais](https://github.com/hellais) that looking at what the [Docker](https://www.docker.com/) client links, because Docker is also written in Go and links some C code as part of the build process.
+It is important to understand exactly what we want to obtain when we discuss static linking. We agreed with [@hellais](https://github.com/hellais) that looking at what the [Docker](https://www.docker.com/) client links, because Docker is written in Go and links some C code.
 
 ### Linux
 
