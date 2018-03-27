@@ -27,7 +27,19 @@ $ ldd `which docker`
 	/lib64/ld-linux-x86-64.so.2 (0x00007fc2b0e00000)
 ````
 
-The [vdso](http://man7.org/linux/man-pages/man7/vdso.7.html) is a dynamic library injected on Linux in the address space of each process to speed-up certain syscalls like `gettimeofday(2)`. Then we see that Docker uses the `pthread` library, the C library, and the dynamic linker. Apparently, `libc.so.6` [is a stable name since 1997](https://stackoverflow.com/questions/6495817), also because libc symbols now have ABI versioning, hence it makes sense to avoid worrying about that. Possibly also the `libpthread.so.0` name is stable. What I think may provoke issues could be the name of the dynamic linker, which can probably change from distro to distro (IIRC).
+So, the baseline here is that Docker for Ubuntu 14.04 depends on _some_ shared libraries, namely:
+
+- [vdso](http://man7.org/linux/man-pages/man7/vdso.7.html) is a dynamic library injected on Linux in the address space of each process to speed-up certain syscalls like `gettimeofday(2)`.
+
+- the posix threads library
+
+- the GNU C library
+
+- the dynamic linker
+
+Compared to a fully static binary, this code has the issue that in other environments it may not work. Specifically, the library names or versions can be different. However, `libc.so.6` [is a stable name since 1997](https://stackoverflow.com/questions/6495817), also because libc symbols now have ABI versioning, hence it makes sense to avoid worrying about that. Possibly also the `libpthread.so.0` name is stable (major ABI version `0` means it never changed). What I think may provoke issues could be the name of the dynamic linker, which can probably change from distro to distro (IIRC).
+
+However, the gold standard here says that we can build for a specific distribution and accept depending on some shared libraries.
 
 ### macOS
 
@@ -98,6 +110,12 @@ run `./script/build/linux`. The script will also print dependencies:
 	/lib64/ld-linux-x86-64.so.2 (0x00007fb3b5a00000)
 	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fb3b4960000)
     [snip]
+```
+
+When discussing Docker above we decided that it was okay to depend on _some_ shared libraries when we were making a package for a specific distribution, as it's done by Docker for Ubuntu. It is to be decided whether we're okay with depending on `libstdc++.so.6` and `libgcc_s.so.1` or whether we prefer static linking. If we are targeting a specific version of a distribution, we probably don't need to do much here. Otherwise, we can use `-static-libstdc++ -static-libgcc` in `main.go`'s `LDFLAGS` to obtain:
+
+```
+... ## this fails to do what it should
 ```
 
 ### macOS
