@@ -27,6 +27,8 @@ $ ldd `which docker`
 	/lib64/ld-linux-x86-64.so.2 (0x00007fc2b0e00000)
 ````
 
+The [vdso](http://man7.org/linux/man-pages/man7/vdso.7.html) is a dynamic library injected on Linux in the address space of each process to speed-up certain syscalls like `gettimeofday(2)`. Then we see that Docker uses the `pthread` library, the C library, and the dynamic linker. Apparently, `libc.so.6` [is a stable name since 1997](https://stackoverflow.com/questions/6495817), also because libc symbols now have ABI versioning, hence it makes sense to avoid worrying about that. Possibly also the `libpthread.so.0` name is stable. What I think may provoke issues could be the name of the dynamic linker, which can probably change from distro to distro (IIRC).
+
 ### macOS
 
 ```
