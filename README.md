@@ -21,7 +21,7 @@ It is important to understand exactly what we want to obtain when we discuss sta
 
 ```
 $ ldd `which docker`
-linux-vdso.so.1 =>  (0x00007fffe02c9000)
+	linux-vdso.so.1 =>  (0x00007fffe02c9000)
 	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fc2b0b30000)
 	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fc2b0760000)
 	/lib64/ld-linux-x86-64.so.2 (0x00007fc2b0e00000)
