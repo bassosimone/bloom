@@ -41,11 +41,39 @@ $ otool -L `which docker`
 
 ### Windows
 
-Docker does not install on my Windows system because it's not cool enough.
+Docker does not install on my Windows system because it requires Windows 10 PRO. So, I
+decided to use [kubernetes](https://github.com/kubernetes/kubernetes) instead.
 
 ```
-...
+$ ldd kubectl.exe
+   [snip]
+	ntdll.dll => /c/WINDOWS/SYSTEM32/ntdll.dll (0x7ffe73b70000)
+	KERNEL32.DLL => /c/WINDOWS/System32/KERNEL32.DLL (0x7ffe73240000)
+	KERNELBASE.dll => /c/WINDOWS/System32/KERNELBASE.dll (0x7ffe70c50000)
+	ws2_32.dll => /c/WINDOWS/System32/ws2_32.dll (0x7ffe73740000)
+	RPCRT4.dll => /c/WINDOWS/System32/RPCRT4.dll (0x7ffe73120000)
+	winmm.dll => /c/WINDOWS/SYSTEM32/winmm.dll (0x7ffe6dda0000)
+	msvcrt.dll => /c/WINDOWS/System32/msvcrt.dll (0x7ffe73570000)
+	winmmbase.dll => /c/WINDOWS/SYSTEM32/winmmbase.dll (0x7ffe6dc60000)
+	??? => ??? (0x140000)
+	??? => ??? (0x170000)
+	cfgmgr32.dll => /c/WINDOWS/System32/cfgmgr32.dll (0x7ffe703b0000)
+	ucrtbase.dll => /c/WINDOWS/System32/ucrtbase.dll (0x7ffe70400000)
+    [snip]
+
+> dumpbin /dependents kubectl.exe
+  [snip]
+File Type: EXECUTABLE IMAGE
+
+  Image has the following dependencies:
+
+    winmm.dll
+    ws2_32.dll
+    kernel32.dll
+  [snip]
 ```
+
+It confuses me a little bit that `ldd` and `dumpbin` return different sets of dependent DLLs, but I assume that is because `ldd` prints also transitive dependencies, whereas `dumpbin` probably only prints immediate ones.
 
 ## What we can achieve "easily"
 
@@ -111,7 +139,7 @@ cd bloom
 The script output will be:
 
 ```
-    [snip]
+  [snip]
 + ldd ./bloom.exe
 	ntdll.dll => /c/WINDOWS/SYSTEM32/ntdll.dll (0x7ffe73b70000)
 	KERNEL32.DLL => /c/WINDOWS/System32/KERNEL32.DLL (0x7ffe73240000)
@@ -125,5 +153,17 @@ The script output will be:
 	??? => ??? (0x150000)
 	cfgmgr32.dll => /c/WINDOWS/System32/cfgmgr32.dll (0x7ffe703b0000)
 	ucrtbase.dll => /c/WINDOWS/System32/ucrtbase.dll (0x7ffe70400000)
-    [snip]
+  [snip]
+
+> dumpbin /dependents bloom.exe
+  [snip]
+File Type: EXECUTABLE IMAGE
+
+  Image has the following dependencies:
+
+    KERNEL32.dll
+    msvcrt.dll
+    WINMM.dll
+    WS2_32.dll
+  [snip]
 ```
