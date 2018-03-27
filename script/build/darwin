@@ -4,3 +4,4 @@ cmake .
 cmake --build .
 go build
 otool -L ./bloom
+./bloom

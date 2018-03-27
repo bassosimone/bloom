@@ -4,3 +4,4 @@ cmake .
 cmake --build .
 go build
 ldd ./bloom.exe
+./bloom.exe
