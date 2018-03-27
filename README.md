@@ -49,13 +49,25 @@ Docker does not install on my Windows system because it's not cool enough.
 
 ## What we can achieve "easily"
 
+With "easily" I mean what corresponds to [e6a88355](
+https://github.com/bassosimone/bloom/tree/e6a88355f3e69da41fcece508653f21f17a99cfb).
+
 ### Linux
 
 Assuming you have gcc, g++, libstdc++, cmake, make, and go installed, you can
 run `./script/build/linux`. The script will also print dependencies:
 
 ```
-...
+    [snip]
++ ldd ./bloom
+	linux-vdso.so.1 =>  (0x00007fffc80e2000)
+	libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fb3b5490000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fb3b5270000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fb3b5050000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fb3b4c70000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fb3b5a00000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fb3b4960000)
+    [snip]
 ```
 
 ### macOS
@@ -99,4 +111,19 @@ cd bloom
 The script output will be:
 
 ```
+    [snip]
++ ldd ./bloom.exe
+	ntdll.dll => /c/WINDOWS/SYSTEM32/ntdll.dll (0x7ffe73b70000)
+	KERNEL32.DLL => /c/WINDOWS/System32/KERNEL32.DLL (0x7ffe73240000)
+	KERNELBASE.dll => /c/WINDOWS/System32/KERNELBASE.dll (0x7ffe70c50000)
+	msvcrt.dll => /c/WINDOWS/System32/msvcrt.dll (0x7ffe73570000)
+	WS2_32.dll => /c/WINDOWS/System32/WS2_32.dll (0x7ffe73740000)
+	RPCRT4.dll => /c/WINDOWS/System32/RPCRT4.dll (0x7ffe73120000)
+	WINMM.dll => /c/WINDOWS/SYSTEM32/WINMM.dll (0x7ffe6dda0000)
+	winmmbase.dll => /c/WINDOWS/SYSTEM32/winmmbase.dll (0x7ffe6dc60000)
+	??? => ??? (0x180000)
+	??? => ??? (0x150000)
+	cfgmgr32.dll => /c/WINDOWS/System32/cfgmgr32.dll (0x7ffe703b0000)
+	ucrtbase.dll => /c/WINDOWS/System32/ucrtbase.dll (0x7ffe70400000)
+    [snip]
 ```
