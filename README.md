@@ -115,7 +115,7 @@ $ ./script/build/darwin
 
 ### Windows using msys2
 
-This solution requires Windows (no cross build on macOS). The build procedure
+This solution requires Windows (no cross build from macOS for now). The build procedure
 (only tested for Windows 64) looks like this:
 
 - install [msys2](http://www.msys2.org/)
