@@ -4,7 +4,7 @@ We are leaning towards shipping [GOONI](https://github.com/OpenObservatory/gooni
 
 Since golang only uses static linking, we need to figure out how to statically link MK in gooni.
 
-Ideally, the build process should not be paintful. Possibly, it should be possible to do all the development from macOS.
+Ideally, the build process should not be paintful. Hopefully, it should be possible to do all the development from macOS.
 
 What we need to achieve is basically the following:
 
