@@ -214,3 +214,9 @@ it should be binary compatible with the DLL shipped with Visual Studio 6.0, beca
 up to that point, that was actually the `libc` as we think about it on Unix. So,
 yes, the DLL is going to be there, but it's _unclear_ and _uncertain_ whether
 using it is the right thing to do. Allegedly, Microsoft doesn't support this usage.
+
+Also (from mingw-64 wiki):
+
+> Regular applications are expected to limit themselves to the 6.0-safe subset.
+
+It remains to be investigated if we can trust `mingw-w64` to do that.
