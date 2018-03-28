@@ -114,7 +114,7 @@ run `./script/build/linux`. The script will also print the dependent shared libr
     [snip]
 ```
 
-When discussing Docker above we decided that it was okay to depend on _some_ shared libraries when we were making a package for a specific distro. It is to be decided whether we're okay with depending on `libstdc++.so.6` and `libgcc_s.so.1`. If we are targeting a specific version of a distribution, we're probably fine. Otherwise, we try `-static-libstdc++ -static-libgcc` in `main.go`'s `LDFLAGS` (even though currently I failed to make it work).
+When discussing Docker above we decided that it was okay to depend on _some_ shared libraries when we were making a package for a specific distro. It is to be decided whether we're okay with depending on `libstdc++.so.6` and `libgcc_s.so.1`. If we are targeting a specific version of a distribution, we're probably fine. Otherwise, we can try `-static-libstdc++ -static-libgcc` in `main.go`'s `LDFLAGS` (even though currently I failed to make it work).
 
 ### macOS
 
