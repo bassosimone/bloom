@@ -4,7 +4,7 @@ We are leaning towards shipping [GOONI](https://github.com/OpenObservatory/gooni
 
 Since <strike>golang only uses static linking</strike> generally one expects a golang binary to be statically linked, we need to figure out whether and how to statically link MK in gooni. Since dynamically linking with golang is actually possible (see below), we should also consider the alternative where we dynamically link with Measurement Kit. 
 
-Ideally, the build process should not be paintful. Hopefully, it should be possible to do all the development from macOS.
+Ideally, the build process should not be paintful. Hopefully, it should be possible to do all the development from macOS. (This would make some people happy, but I would say it is also a quite strong requirement.)
 
 What we need to achieve is basically the following:
 
