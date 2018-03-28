@@ -51,6 +51,8 @@ $ otool -L `which docker`
 	    (compatibility version 1.0.0, current version 57336.1.9)
 ```
 
+Here the dependencies are the C library, a basic system library (`CoreFoundation`) and the `Security` framework. Especially for the C library, it's worth noting that the compatibility version is `1.0.0`. On that note, [it seem that Apple strives to provide stable ABI and discourages static linking with system libraries](https://developer.apple.com/library/content/qa/qa1118/_index.html). Hence, I'd say that linking with system-specific libraries on Apple systems is okay.
+
 ### Windows
 
 Docker does not install on my Windows system because it requires Windows 10 PRO. So, I
@@ -87,6 +89,8 @@ File Type: EXECUTABLE IMAGE
 
 It confuses me a little bit that `ldd` and `dumpbin` return different sets of dependent DLLs, but I assume that is because `ldd` prints also transitive dependencies, whereas `dumpbin` probably only prints immediate ones.
 
+Assuming `dumpbin` (the _platform native_) tool is right, here we're linking with Windows Multimedia (`winmm.dll`), Windows Sockets v2.0 (`ws2_32.dll`), and the Windows API (`kernel32.dll`). For more on Windows DLLs, see [Wikipedia](https://en.wikipedia.org/wiki/Microsoft_Windows_library_files).
+
 ## What we can achieve "easily"
 
 With "easily" I mean what corresponds to [e6a88355](
@@ -95,7 +99,7 @@ https://github.com/bassosimone/bloom/tree/e6a88355f3e69da41fcece508653f21f17a99c
 ### Linux
 
 Assuming you have gcc, g++, libstdc++, cmake, make, and go installed, you can
-run `./script/build/linux`. The script will also print dependencies:
+run `./script/build/linux`. The script will also print the dependent shared libraries:
 
 ```
     [snip]
@@ -110,12 +114,12 @@ run `./script/build/linux`. The script will also print dependencies:
     [snip]
 ```
 
-When discussing Docker above we decided that it was okay to depend on _some_ shared libraries when we were making a package for a specific distributio. It is to be decided whether we're okay with depending on `libstdc++.so.6` and `libgcc_s.so.1` or whether we prefer static linking. If we are targeting a specific version of a distribution, we're probably fine. Otherwise, we try `-static-libstdc++ -static-libgcc` in `main.go`'s `LDFLAGS` (even though currently I failed to make it work).
+When discussing Docker above we decided that it was okay to depend on _some_ shared libraries when we were making a package for a specific distro. It is to be decided whether we're okay with depending on `libstdc++.so.6` and `libgcc_s.so.1`. If we are targeting a specific version of a distribution, we're probably fine. Otherwise, we try `-static-libstdc++ -static-libgcc` in `main.go`'s `LDFLAGS` (even though currently I failed to make it work).
 
 ### macOS
 
 Assuming you have Xcode command line tools, cmake, and go installed, you can
-run `./script/build/darwin`. The script will also print dependencies:
+run `./script/build/darwin`. The script will also print the dependent shared libraries:
 
 ```
 $ ./script/build/darwin
@@ -127,12 +131,18 @@ $ ./script/build/darwin
     [snip]
 ```
 
+As mentioned above, depending on these libraries is totally fine, as Apple strives to
+provide binary compatibility across macOS releases.
+
 ### Windows using msys2
 
-This solution requires Windows (no cross build from macOS for now). The build procedure
-(only tested for Windows 64) looks like this:
+This solution requires Windows (no cross build from macOS for now!). The build procedure
+(only tested for Windows 64) requires to install [MSYS2](http://www.msys2.org/). I choose
+to use MSYS2 because it includes a mingw-w64 distribution [where the compiler is configured
+to use C++11 threading through the posix thread model](
+https://stackoverflow.com/questions/17242516/mingw-w64-threads-posix-vs-win32).
 
-- install [msys2](http://www.msys2.org/)
+- download and install MSYS2
 - open "MSYS2 MinGW 64-bit" and type the following inside the shell
 
 ```
@@ -181,3 +191,13 @@ File Type: EXECUTABLE IMAGE
     WS2_32.dll
   [snip]
 ```
+
+Compared to the above example (kubernetes), we introduced a new dependency,
+`msvcrt.dll`, which is the C runtime. It is not completely clear to me why this
+runtime is used and not the versioned ones, [even after reading the related
+entry on Wikipedia](https://en.wikipedia.org/wiki/Microsoft_Windows_library_files#MSVCRT.DLL,_MSVCP*.DLL_and_CRTDLL.DLL).
+I guess the main question here is whether we can expect `msvcrt.dll` (and the other
+DLLs listed above) to be part of a default Windows install, or whether we need to
+do something else instead. (It must be noted that this result is obtained by
+passing `-static` to the compiler, so I would assume that all the libraries that
+could have been made static were actually made static by `mingw`).
