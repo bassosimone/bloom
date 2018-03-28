@@ -199,5 +199,5 @@ entry on Wikipedia](https://en.wikipedia.org/wiki/Microsoft_Windows_library_file
 I guess the main question here is whether we can expect `msvcrt.dll` (and the other
 DLLs listed above) to be part of a default Windows install, or whether we need to
 do something else instead. (It must be noted that this result is obtained by
-passing `-static` to the compiler, so I would assume that all the libraries that
-could have been made static were actually made static by `mingw`).
+passing `-static` to the compiler, so I don't know how to make these other
+libraries static).
