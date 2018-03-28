@@ -201,3 +201,16 @@ DLLs listed above) to be part of a default Windows install, or whether we need t
 do something else instead. (It must be noted that this result is obtained by
 passing `-static` to the compiler, so I don't know how to make these other
 libraries static).
+
+I digged a bit more into this issue. Apparently, [mingw links with the C library
+shipped with the operating system](https://stackoverflow.com/a/7884233). This
+appears to be a not-so-good idea, according to [a poster on Stack Overflow](
+https://stackoverflow.com/a/1073772) and to [an article posted on the Wiki of
+mingw-w64 itself](https://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll/).
+
+TL;DR The `msvcrt.dll` included in the system is different from `libc` on Unix
+in that it's system-private. It cannot be overwritten (to avoid "DLL hell"), but
+it should be binary compatible with the DLL shipped with Visual Studio 6.0, because
+up to that point, that was actually the `libc` as we think about it on Unix. So,
+yes, the DLL is going to be there, but it's _unclear_ and _uncertain_ whether
+using it is the right thing to do. Allegedly, Microsoft doesn't support this usage.
