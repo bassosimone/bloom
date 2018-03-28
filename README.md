@@ -206,7 +206,7 @@ I digged a bit more into this issue. Apparently, [mingw links with the C library
 shipped with the operating system](https://stackoverflow.com/a/7884233). This
 appears to be a not-so-good idea, according to [a poster on Stack Overflow](
 https://stackoverflow.com/a/1073772) and to [an article posted on the Wiki of
-mingw-w64 itself](https://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll/).
+mingw-w64](https://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll/).
 
 TL;DR The `msvcrt.dll` included in the system is different from `libc` on Unix
 in that it's system-private. It cannot be overwritten (to avoid "DLL hell"), but
