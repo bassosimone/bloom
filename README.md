@@ -225,4 +225,4 @@ Also (from mingw-64 wiki, dated 2014-06-25 BTW):
 It remains to be investigated if we can trust `mingw-w64` to do that.
 
 Searching for [msvcrt.dll](https://sourceforge.net/p/mingw-w64/wiki2/search/?q=msvcrt.dll)
-in the mingw-w64 wiki did not yield anything immediately looking as a follow up.
+in the mingw-w64 wiki did not yield anything immediately related to the topic.
