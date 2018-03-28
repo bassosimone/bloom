@@ -153,7 +153,7 @@ export GOROOT=/mingw64/lib/go
 pacman -Syu
 ```
 
-After this step, the shell may exit (it occurred to me) and you need to start
+After this step, the shell may exit (it happened to me) and you need to start
 another shell and continue typing:
 
 ```
