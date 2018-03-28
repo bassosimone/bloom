@@ -2,7 +2,7 @@
 
 We are leaning towards shipping [GOONI](https://github.com/OpenObservatory/gooni), a [Go](https://golang.org/) based command line interface for OONI.
 
-Since golang only uses static linking, we need to figure out how to statically link MK in gooni.
+Since <strike>golang only uses static linking</strike> generally one expects a golang binary to be statically linked, we need to figure out how to statically link MK in gooni. Unless we decide it's okay to depend on external shared libraries. (As we will see, in most cases we _will_ deeend on _some_ shared libraries anyway; the main question is probably whether we want to statically or dynamically link with Measurement Kit.)
 
 Ideally, the build process should not be paintful. Hopefully, it should be possible to do all the development from macOS.
 
