@@ -89,7 +89,7 @@ File Type: EXECUTABLE IMAGE
 
 It confuses me a little bit that `ldd` and `dumpbin` return different sets of dependent DLLs, but I assume that is because `ldd` prints also transitive dependencies, whereas `dumpbin` probably only prints immediate ones.
 
-Assuming `dumpbin` (the _platform native_) tool is right, here we're linking with Windows Multimedia (`winmm.dll`), Windows Sockets v2.0 (`ws2_32.dll`), and the Windows API (`kernel32.dll`). For more on Windows DLLs, see [Wikipedia](https://en.wikipedia.org/wiki/Microsoft_Windows_library_files).
+Assuming `dumpbin` (the _platform native_ tool) is right, here we're linking with Windows Multimedia (`winmm.dll`), Windows Sockets v2.0 (`ws2_32.dll`), and the Windows API (`kernel32.dll`). For more on Windows DLLs, see [Wikipedia](https://en.wikipedia.org/wiki/Microsoft_Windows_library_files).
 
 ## What we can achieve "easily"
 
