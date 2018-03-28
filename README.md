@@ -31,15 +31,13 @@ So, the baseline here is that Docker for Ubuntu 14.04 depends on _some_ shared l
 
 - [vdso](http://man7.org/linux/man-pages/man7/vdso.7.html) is a dynamic library injected on Linux in the address space of each process to speed-up certain syscalls like `gettimeofday(2)`.
 
-- the posix threads library
+- the posix threads library (`/lib/x86_64-linux-gnu/libpthread.so.0`)
 
-- the GNU C library
+- the GNU C library (`/lib/x86_64-linux-gnu/libc.so.6`)
 
-- the dynamic linker
+- the dynamic linker (`/lib64/ld-linux-x86-64.so.2`)
 
-Compared to a fully static binary, this code has the issue that in other environments it may not work. Specifically, the library names or versions can be different. However, `libc.so.6` [is a stable name since 1997](https://stackoverflow.com/questions/6495817), also because libc symbols now have ABI versioning, hence it makes sense to avoid worrying about that. Possibly also the `libpthread.so.0` name is stable (major ABI version `0` means it never changed). What I think may provoke issues could be the name of the dynamic linker, which can probably change from distro to distro (IIRC).
-
-However, the gold standard here says that we can build for a specific distribution and accept depending on some shared libraries.
+So, compared to a fully static binary (i.e. what you obtain by default with `go build` on Linux), this library is less portable across distributions, because some libraries may have different names or base paths on other systems. As long as the package is built for a specific distro, the problem is less relevant, since I do not expect the location of the dynamic linker to change across versions. Also, `libc.so.6` [is a stable name since 1997](https://stackoverflow.com/questions/6495817). Also, `libpthread.so.0` is probably a stable name (major ABI version `0` means it never changed). Bottom line, when building for a specific distro it is okay to have some shared dependencies.
 
 ### macOS
 
@@ -112,11 +110,7 @@ run `./script/build/linux`. The script will also print dependencies:
     [snip]
 ```
 
-When discussing Docker above we decided that it was okay to depend on _some_ shared libraries when we were making a package for a specific distribution, as it's done by Docker for Ubuntu. It is to be decided whether we're okay with depending on `libstdc++.so.6` and `libgcc_s.so.1` or whether we prefer static linking. If we are targeting a specific version of a distribution, we probably don't need to do much here. Otherwise, we can use `-static-libstdc++ -static-libgcc` in `main.go`'s `LDFLAGS` to obtain:
-
-```
-... ## this fails to do what it should
-```
+When discussing Docker above we decided that it was okay to depend on _some_ shared libraries when we were making a package for a specific distributio. It is to be decided whether we're okay with depending on `libstdc++.so.6` and `libgcc_s.so.1` or whether we prefer static linking. If we are targeting a specific version of a distribution, we're probably fine. Otherwise, we try `-static-libstdc++ -static-libgcc` in `main.go`'s `LDFLAGS` (even though currently I failed to make it work).
 
 ### macOS
 
