@@ -143,7 +143,8 @@ to use C++11 threading through the POSIX thread model](
 https://stackoverflow.com/questions/17242516/mingw-w64-threads-posix-vs-win32). To have
 the same on macOS, we [would sadly needly to recompile mingw-w64 to enable the POSIX
 thread model, disabled by default](
-https://github.com/Homebrew/homebrew-core/issues/21706).
+https://github.com/Homebrew/homebrew-core/issues/21706), or we would need to use
+[an inline implementation that provides C++11 threading](https://github.com/meganz/mingw-std-threads).
 
 - download and install MSYS2
 - open "MSYS2 MinGW 64-bit" and type the following inside the shell
