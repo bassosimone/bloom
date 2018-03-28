@@ -37,7 +37,7 @@ So, the baseline here is that Docker for Ubuntu 14.04 depends on _some_ shared l
 
 - the dynamic linker (`/lib64/ld-linux-x86-64.so.2`)
 
-So, compared to a fully static binary, this is less portable across distributions, because some libraries may have different names or base paths on other systems. As long as the package is built for a specific distro, the problem is less relevant, since I do not expect the location of the dynamic linker to change across versions. Also, `libc.so.6` [is a stable name since 1997](https://stackoverflow.com/questions/6495817). Also, `libpthread.so.0` is probably a stable name (major ABI version `0` means it never changed). Bottom line, when building for a specific distro it is okay to have some shared dependencies.
+Compared to a fully static binary, this is less portable across distributions, because some libraries may have different names or base paths on other systems. As long as the package is built for a specific distro, the problem is less relevant, since I do not expect the location of the dynamic linker to change across versions. Also, `libc.so.6` [is a stable name since 1997](https://stackoverflow.com/questions/6495817). Also, `libpthread.so.0` is probably a stable name (major ABI version `0` means it never changed). Bottom line, when building for a specific distro it is okay to have some shared dependencies.
 
 ### macOS
 
