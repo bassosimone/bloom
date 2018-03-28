@@ -140,7 +140,10 @@ This solution requires Windows (no cross build from macOS for now!). The build p
 (only tested for Windows 64) requires to install [MSYS2](http://www.msys2.org/). I choose
 to use MSYS2 because it includes a mingw-w64 distribution [where the compiler is configured
 to use C++11 threading through the posix thread model](
-https://stackoverflow.com/questions/17242516/mingw-w64-threads-posix-vs-win32).
+https://stackoverflow.com/questions/17242516/mingw-w64-threads-posix-vs-win32). To have
+the same on macOS, we [would sadly needly to recompile mingw-w64 to enable the POSIX
+threads model, disabled by default](
+https://github.com/Homebrew/homebrew-core/issues/21706).
 
 - download and install MSYS2
 - open "MSYS2 MinGW 64-bit" and type the following inside the shell
