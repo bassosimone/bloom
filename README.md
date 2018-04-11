@@ -227,3 +227,6 @@ It remains to be investigated if we can trust `mingw-w64` to do that.
 
 Searching for [msvcrt.dll](https://sourceforge.net/p/mingw-w64/wiki2/search/?q=msvcrt.dll)
 in the mingw-w64 wiki did not yield anything immediately related to the topic.
+
+A possibily interesting follow-up reading is the [overview of potential upgrade issues
+with Visual C++](https://docs.microsoft.com/en-us/cpp/porting/overview-of-potential-upgrade-issues-visual-cpp).
