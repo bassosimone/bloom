@@ -231,7 +231,7 @@ in the mingw-w64 wiki did not yield anything immediately related to the topic.
 A possibily interesting follow-up reading is the [overview of potential upgrade issues
 with Visual C++](https://docs.microsoft.com/en-us/cpp/porting/overview-of-potential-upgrade-issues-visual-cpp).
 
-After further research, I started opening a [MK PR for adding Windows support](
+**Conclusion** I started opening a [MK PR for adding Windows support](
 https://github.com/measurement-kit/measurement-kit/pull/1606). This PR contains the
 results of further research based on this initial effort. I won't repeat myself
-for now :-). The TL;DR is that we can use `mingw-w64` with 🤞.
+for now :-). TL;DR can use `mingw-w64` with 🤞.
